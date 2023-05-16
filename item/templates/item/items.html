@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% block title%}Items{% endblock %}
+
+{% block content %}
+    <div class="pb-6 grid grid-cols-4 gap-4">
+        
+        <div class="col-span-1">
+            <form method="GET" action="{% url 'item:items' %}">
+                <input name="query" class="w-full py-4 px-6 border rounded-xl" type="text" value="{{ query }}" placeholder="Search..."><br>
+                <button class="py-3 px-6 text-white bg-teal-500 rounded-xl">Search</button>
+            </form>
+        </div>
+
+        <div class="col-span-3">
+            <div class="grid grid-cols-3 gap-3">
+                {% for item in items %}
+                    <div>
+                        <a href="{% url 'item:detail' item.id %}"> <!-- item is namespace or app_name. item.id item is table, id is primary key -->
+                            <div>
+                                <img src="{{ item.image.url }}" class="rounded-xl">
+                            </div>
+                            <div class="p-6 bg-white rounded-b-xl">
+                                <h1 class="text-2xl">{{ item.name }}</h1>
+                                <p class="text-gray-500">Price: {{ item.price }}</p>
+                                <p class="text-gray-500">Seller: {{ item.created_by.username }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
