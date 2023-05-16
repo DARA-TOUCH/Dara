@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block title %}App List{% endblock %}
+
+{% block content %}
+    <div class="grid grid-cols-3 gap-10">
+        <div class="col-span-1 bg-gradient-to-br from-blue-500 to-red-400 mt-6 text-center rounded-xl">
+            Make List01 Report
+            
+        </div>
+
+        <div class="col-span-1 bg-gradient-to-br from-blue-500 to-purple-200 mt-6 text-center rounded-xl">
+            Make List01 Report
+        </div>
+
+        <div class="col-span-1 bg-gradient-to-br from-purple-500 to-green-500 mt-6 text-center rounded-xl">
+            Make List01 Report
+        </div>
+
+    </div>    
+
+    <body style="margin-top: 30px;margin-left: 30px;">
+        <form action="{% url 'myApp:list01' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file"
+                   title="Upload excel file"
+                   name="excel_file"
+                   style="border: 1px solid black; padding: 5px;"
+                   required="required">
+            <p>
+            <input type="submit"
+                   value="Upload"
+                   style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+        </form>
+
+        <p></p>
+        <hr>
+
+        {% for row in excel_data %}
+            {% for cell in row %}
+                {{ cell }}&nbsp;&nbsp;
+            {% endfor %}
+            <br>
+        {% endfor %}
+    </body>
+{% endblock %}
